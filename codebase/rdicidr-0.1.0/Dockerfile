@@ -5,7 +5,7 @@ FROM node:15 as builder
 WORKDIR /app
 
 # Copiar package.json e package-lock.json para instalar dependências
-COPY package*.json ./
+COPY codebase/rdicidr-0.1.0/package*.json ./
 
 # Instalar dependências
 RUN npm install
@@ -15,7 +15,6 @@ COPY . .
 
 # Executar o build da aplicação
 RUN npm run build
-
 
 # Fase 2: Final - Criar uma imagem leve com o código compilado
 FROM node:15
