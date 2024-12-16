@@ -11,7 +11,7 @@ COPY codebase/rdicidr-0.1.0/package*.json ./
 RUN npm install
 
 # Copiar o código-fonte (src e public) para o contêiner
-COPY codebase/rdicidr-0.1.0/ ./ 
+COPY ./codebase/rdicidr-0.1.0/ ./
 
 # Executar o build da aplicação
 RUN npm run build
