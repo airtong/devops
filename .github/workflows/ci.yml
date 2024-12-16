@@ -2,9 +2,11 @@ name: CI Pipeline
 
 on:
   pull_request:
-    paths:
-      - 'codebase/rdicidr-0.1.0/**'
-
+    branches:
+      - main
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
