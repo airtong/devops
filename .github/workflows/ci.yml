@@ -2,11 +2,9 @@ name: CI Pipeline
 
 on:
   pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+    paths:
+      - 'codebase/rdicidr-0.1.0/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,10 +13,10 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Set up Node.js
+    - name: Set up Node.js (v15.x)
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '15.x'  # Instalar versão 15.x para compatibilidade com seu package.json
 
     - name: Install Dependencies
       run: |
