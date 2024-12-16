@@ -2,37 +2,49 @@ name: CI Pipeline
 
 on:
   pull_request:
-    branches:
-      - main
-
-  push:
-    branches:
-      - main
+    paths:
+      - 'codebase/rdicidr-0.1.0/**'
 
 jobs:
-  ci-pipeline:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '18'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Install Dependencies
+      run: |
+        cd codebase/rdicidr-0.1.0
+        npm install
 
-    - name: Run Linter
-      run: npm run lint
+    - name: Linter (ESLint)
+      run: |
+        cd codebase/rdicidr-0.1.0
+        npm run lint
 
-    - name: Run Formatter
-      run: npm run prettier
+    - name: Formatter (Prettier)
+      run: |
+        cd codebase/rdicidr-0.1.0
+        npm run prettier
 
-    - name: Run Tests
-      run: CI=true npm run test
+    - name: Test (Jest)
+      run: |
+        cd codebase/rdicidr-0.1.0
+        CI=true npm run test
 
-    - name: Build Application
-      run: npm run build
+    - name: Build
+      run: |
+        cd codebase/rdicidr-0.1.0
+        npm run build
+
+    - name: Docker Build and Push
+      run: |
+        cd codebase/rdicidr-0.1.0
+        docker build -t meu-app:latest .
+        docker push meu-usuario/meu-app:latest  # Se usar Docker Hub
