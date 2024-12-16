@@ -44,9 +44,3 @@ jobs:
       run: |
         cd codebase/rdicidr-0.1.0
         npm run build
-
-    - name: Docker Build and Push
-      run: |
-        cd codebase/rdicidr-0.1.0
-        docker build -t meu-app:latest .
-        docker push meu-usuario/meu-app:latest  # Se usar Docker Hub
