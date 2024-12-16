@@ -1,21 +1,37 @@
+# Fase 1: Builder - Instala dependências e compila o código
 FROM node:15 as builder
 
-WORKDIR
+# Definir o diretório de trabalho
+WORKDIR /app
 
-COPY
+# Copiar package.json e package-lock.json para instalar dependências
+COPY package*.json ./
 
-RUN 
+# Instalar dependências
+RUN npm install
 
-COPY
+# Copiar o restante do código da aplicação
+COPY . .
 
-RUN 
+# Executar o build da aplicação
+RUN npm run build
 
-FROM
 
-WORKDIR
+# Fase 2: Final - Criar uma imagem leve com o código compilado
+FROM node:15
 
-COPY
+# Definir o diretório de trabalho
+WORKDIR /app
 
-RUN 
+# Copiar apenas os arquivos necessários do builder
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
 
-ENTRYPOINT 
+# Instalar apenas as dependências de produção
+RUN npm install --only=production
+
+# Configurar a porta do container
+EXPOSE 8080
+
+# Definir o comando de entrada
+ENTRYPOINT ["node", "dist/index.js"]
