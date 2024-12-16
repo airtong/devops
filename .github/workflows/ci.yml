@@ -22,6 +22,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        cd codebase/rdicidr-0.1.0
         npm install
 
     - name: Linter (ESLint)
