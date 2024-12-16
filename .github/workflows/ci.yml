@@ -26,21 +26,26 @@ jobs:
 
     - name: Linter (ESLint)
       run: |
+        cd codebase/rdicidr-0.1.0
         npm run lint
 
     - name: Formatter (Prettier)
       run: |
+        cd codebase/rdicidr-0.1.0
         npm run prettier
 
     - name: Test (Jest)
       run: |
+        cd codebase/rdicidr-0.1.0
         CI=true npm run test
 
     - name: Build
       run: |
+        cd codebase/rdicidr-0.1.0
         npm run build
 
     - name: Docker Build and Push
       run: |
+        cd codebase/rdicidr-0.1.0
         docker build -t meu-app:latest .
         docker push meu-usuario/meu-app:latest  # Se usar Docker Hub
